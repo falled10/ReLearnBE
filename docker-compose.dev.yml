@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  relearn_mongo:
+    container_name: relearn_mongo
+    image: mongo:latest
+    env_file: .env
+    volumes:
+      - ./.data/mongodbdata:/data/db
+    command: mongod --auth
+    ports:
+      - 27018:27017

@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  relearn_mongo:
+    container_name: relearn_mongo
+    image: mongo:latest
+    env_file: .env
+    volumes:
+      - ./.data/mongodbdata:/data/db
+    command: mongod --auth
+    ports:
+      - 27018:27017
+  relearn_api:
+    container_name: relearn_api
+    build:
+      context: .
+    ports:
+      - 8001:8000
+    volumes:
+      - .:/usr/src/app
+    env_file: .env
+    depends_on:
+      - relearn_mongo

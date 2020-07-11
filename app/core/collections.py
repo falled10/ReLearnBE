@@ -1,0 +1,6 @@
+from app.users.schemas import COLLECTION_NAME as USER_COLLECTION
+
+
+COLLECTIONS = [
+    USER_COLLECTION
+]
