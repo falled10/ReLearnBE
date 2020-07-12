@@ -1,4 +1,5 @@
 from bson import ObjectId
+from bson.errors import InvalidId
 from fastapi import HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 from starlette import status
@@ -7,6 +8,18 @@ import random
 from app.words.schemas import COLLECTION_NAME as WORDS_COLLECTION
 from app.users.schemas import COLLECTION_NAME as USERS_COLLECTION
 from app.config import MONGO_INITDB_DATABASE
+
+
+async def get_translation_by_word(word: str, db: AsyncIOMotorClient) -> dict:
+    try:
+        word = await db[MONGO_INITDB_DATABASE][WORDS_COLLECTION].find_one({'word': word})
+    except InvalidId:
+        raise HTTPException(status_code=404, detail="Word is not found")
+
+    if not word:
+        raise HTTPException(status_code=404, detail="Word is not found")
+    word.update({'id': str(word['_id'])})
+    return dict(word)
 
 
 async def get_random_word(user_words, db: AsyncIOMotorClient) -> dict:

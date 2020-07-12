@@ -66,3 +66,18 @@ def test_get_words_if_user_have_all_answered(client, random_word, user):
         client.post('/api/words/answer', json=data, headers={'Authorization': user['telegram_id']})
     resp = client.get('/api/words/random_word', headers={'Authorization': user['telegram_id']})
     assert resp.status_code == 404
+
+
+@pytest.mark.asyncio
+def test_get_word_by_its_id(client, random_word):
+    words = random_word.inserted_ids
+    resp = client.get(f'/api/words/{str(words[0])}')
+    assert resp.status_code == 200
+    assert 'word' in resp.json()
+    assert 'translation' in resp.json()
+
+
+@pytest.mark.asyncio
+def test_non_existed_word_by_id(client):
+    resp = client.get('/api/words/asdfadsf')
+    assert resp.status_code == 404
