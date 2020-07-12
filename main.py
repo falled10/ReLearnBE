@@ -8,12 +8,14 @@ from starlette.responses import JSONResponse
 
 from app.core.db import connect_to_mongo, close_mongo_connection
 from app.users.routes import router as users_router
+from app.words.routes import router as words_router
 
 
 app = FastAPI()
 
 
 app.include_router(users_router, prefix='/api/users', tags=['users'])
+app.include_router(words_router, prefix='/api/words', tags=['words'])
 
 app.add_event_handler('startup', connect_to_mongo)
 app.add_event_handler('shutdown', close_mongo_connection)

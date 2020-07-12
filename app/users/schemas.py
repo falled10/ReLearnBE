@@ -14,6 +14,7 @@ class TelegramUserSchema(CamelCaseSchema):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     is_active: bool = True
+    words: list = []
 
     @staticmethod
     def get_collection_name():
@@ -25,3 +26,4 @@ class CreateTelegramUserSchema(DBModelSchema):
     username: Optional[str] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
+    words: list = []
