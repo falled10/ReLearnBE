@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from app.config import MONGO_INITDB_DATABASE
 from app.core.db import get_database, connect_to_mongo, close_mongo_connection
 from app.words.schemas import COLLECTION_NAME as WORDS_COLLECTION
-from app.users.schemas import COLLECTION_NAME as USERS_COLLECTION
+from app.users.schemas import CreateTelegramUserSchema, COLLECTION_NAME as USERS_COLLECTION
 from main import app
 
 
@@ -38,8 +38,8 @@ async def random_word():
 async def user():
     try:
         await connect_to_mongo()
-        data = {'telegram_id': 'something',
-                'username': 'something-else'}
+        data = CreateTelegramUserSchema(**{'telegram_id': 'something',
+                                           'username': 'something-else'}).dict()
         db = await get_database()
         await db[MONGO_INITDB_DATABASE][USERS_COLLECTION].insert_one(data)
         yield data

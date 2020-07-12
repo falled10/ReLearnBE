@@ -11,8 +11,9 @@ router = APIRouter()
 
 
 @router.get('/random_word', response_model=RandomWordSchema)
-async def random_word(db: AsyncIOMotorClient = Depends(get_database)):
-    word = await get_random_word(db)
+async def random_word(db: AsyncIOMotorClient = Depends(get_database),
+                      user: dict = Depends(get_or_create_user)):
+    word = await get_random_word(user['words'], db)
     return word
 
 
