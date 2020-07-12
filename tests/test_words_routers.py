@@ -12,6 +12,12 @@ def test_get_one_random_word(client, random_word, user):
 
 
 @pytest.mark.asyncio
+def test_get_random_word_without_authorization_header(client, random_word):
+    resp = client.get('/api/words/random_word')
+    assert resp.status_code == 401
+
+
+@pytest.mark.asyncio
 def test_send_answer(client, random_word, user):
     words = random_word.inserted_ids
     data = {
@@ -21,14 +27,24 @@ def test_send_answer(client, random_word, user):
 
     assert resp.status_code == 204
 
-    user_resp = client.get(f'/api/users/{user["telegram_id"]}')
+    user_resp = client.get(f'/api/users/me', headers={'Authorization': user['telegram_id']})
 
     assert user_resp.status_code == 200
     assert data['word_id'] in user_resp.json()['words']
 
 
 @pytest.mark.asyncio
-def get_answer_not_in_user_words(client, random_word, user):
+def test_send_answer_without_authorization_header(client, random_word):
+    words = random_word.inserted_ids
+    data = {
+        'word_id': str(words[0])
+    }
+    resp = client.post('/api/words/answer', json=data)
+    assert resp.status_code == 401
+
+
+@pytest.mark.asyncio
+def test_get_answer_not_in_user_words(client, random_word, user):
     words = random_word.inserted_ids
     data = {
         'word_id': str(words[0])

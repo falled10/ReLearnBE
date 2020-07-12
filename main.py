@@ -28,8 +28,3 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     return JSONResponse(
         status_code=status.HTTP_400_BAD_REQUEST,
         content=jsonable_encoder({'detail': [{'field': i['loc'][-1], 'msg': i['msg']} for i in exc.errors()]}))
-
-
-@app.get('/')
-async def root():
-    return {'hello': 'friend'}

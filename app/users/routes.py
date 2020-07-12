@@ -3,6 +3,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 from app.users.schemas import CreateTelegramUserSchema, TelegramUserSchema
 from app.users.crud import create_user, get_user_by_telegram_id
+from app.users.dependencies import get_or_create_user
 from app.core.db import get_database
 
 
@@ -15,7 +16,8 @@ async def create_new_user(user: CreateTelegramUserSchema, db: AsyncIOMotorClient
     return user
 
 
-@router.get('/{telegram_id}', response_model=TelegramUserSchema)
-async def get_one_user(telegram_id: str, db: AsyncIOMotorClient = Depends(get_database)):
-    user = await get_user_by_telegram_id(telegram_id, db)
+@router.get('/me', response_model=TelegramUserSchema)
+async def get_current_user(db: AsyncIOMotorClient = Depends(get_database),
+                           user: dict = Depends(get_or_create_user)):
+    user = await get_user_by_telegram_id(user['telegram_id'], db)
     return user

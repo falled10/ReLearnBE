@@ -1,3 +1,8 @@
+"""This script should be used before project starts
+for fill the words collection with content
+"""
+
+
 import json
 import asyncio
 
@@ -7,6 +12,8 @@ from app.config import MONGO_INITDB_DATABASE
 
 
 async def fill_content(path: str):
+    """Use this function for fill words collection with content
+    """
     try:
         await connect_to_mongo()
         db = await get_database()

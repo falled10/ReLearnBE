@@ -6,7 +6,7 @@ from app.core.schemas import DBModelSchema, CamelCaseSchema
 COLLECTION_NAME = "users_collection"
 
 
-class TelegramUserSchema(CamelCaseSchema):
+class TelegramUserSchema(DBModelSchema):
     """DB model for telegram user
     """
     telegram_id: str
@@ -21,9 +21,11 @@ class TelegramUserSchema(CamelCaseSchema):
         return COLLECTION_NAME
 
 
-class CreateTelegramUserSchema(DBModelSchema):
+class CreateTelegramUserSchema(CamelCaseSchema):
+    """Schema for creating telegram user
+    """
     telegram_id: str
     username: Optional[str] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
-    words: list = []
+    words: Optional[list] = []

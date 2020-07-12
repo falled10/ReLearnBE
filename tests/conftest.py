@@ -11,6 +11,8 @@ from main import app
 
 @pytest.yield_fixture(autouse=True)
 async def collections():
+    """Fixture for clearing database after each test
+    """
     try:
         await connect_to_mongo()
         db = await get_database()
@@ -22,6 +24,8 @@ async def collections():
 
 @pytest.fixture()
 async def random_word():
+    """Fixture for creating words inside words_collection
+    """
     try:
         await connect_to_mongo()
         db = await get_database()
@@ -36,6 +40,8 @@ async def random_word():
 
 @pytest.fixture()
 async def user():
+    """Fixture for creating user inside user_collection
+    """
     try:
         await connect_to_mongo()
         data = CreateTelegramUserSchema(**{'telegram_id': 'something',

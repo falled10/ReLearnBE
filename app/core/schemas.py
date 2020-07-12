@@ -15,7 +15,3 @@ class CamelCaseSchema(BaseModel):
 
 class DBModelSchema(CamelCaseSchema):
     created_at: Optional[datetime] = datetime.now()
-
-    @staticmethod
-    def get_collection_name():
-        return 'base_collection'
