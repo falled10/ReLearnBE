@@ -30,8 +30,7 @@ services:
       - 80:80
     env_file:
       - .env
-    volumes:
-      - web-root:/var/www/html
+    volumes:g
       - ./.conf/nginx:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
@@ -45,7 +44,6 @@ services:
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
     depends_on:
       - nginx
     command: certonly --webroot --webroot-path=/var/www/html --email jurakulek@gmail.com --agree-tos --no-eff-email --staging -d example.com -d 161.35.205.186
