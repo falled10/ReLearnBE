@@ -11,7 +11,7 @@ services:
     ports:
       - 27018:27017
     networks:
-      - api-networks
+      - api-network
   relearn_api:
     container_name: relearn_api
     build:
@@ -48,6 +48,11 @@ services:
       - nginx
     command: certonly --webroot --webroot-path=/var/www/html --email jurakulek@gmail.com --agree-tos --no-eff-email --staging -d example.com -d 161.35.205.186
 
+volumes:
+  certbot-etc:
+  certbot-var:
+
+
 networks:
-  app-network:
-    driver: bridgeg
+  api-network:
+    driver: bridge
