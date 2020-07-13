@@ -10,8 +10,6 @@ services:
     command: mongod --auth
     ports:
       - 27018:27017
-    networks:
-      - api-network
   relearn_api:
     container_name: relearn_api
     build:
@@ -21,8 +19,6 @@ services:
     env_file: .env
     depends_on:
       - relearn_mongo
-    networks:
-      - api-network
   nginx:
     image: nginx:latest
     restart: always
@@ -32,27 +28,5 @@ services:
       - .env
     volumes:
       - ./.conf/nginx:/etc/nginx/conf.d
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
     depends_on:
       - relearn_api
-    networks:
-      - api-network
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-    depends_on:
-      - nginx
-    command: certonly --email jurakulek@gmail.com --agree-tos --no-eff-email --staging -d example.com -d 161.35.205.186
-
-volumes:
-  certbot-etc:
-  certbot-var:
-
-
-networks:
-  api-network:
-    driver: bridge
