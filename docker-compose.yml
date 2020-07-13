@@ -30,7 +30,7 @@ services:
       - 80:80
     env_file:
       - .env
-    volumes:g
+    volumes:
       - ./.conf/nginx:/etc/nginx/conf.d
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
