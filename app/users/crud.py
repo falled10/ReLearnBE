@@ -4,7 +4,7 @@ from starlette import status
 
 from app.users.schemas import CreateTelegramUserSchema, COLLECTION_NAME
 from app.users.validators import validate_unique_telegram_id
-from app.config import MONGO_INITDB_DATABASE
+from app.core.config import MONGO_INITDB_DATABASE
 
 
 async def create_user(conn: AsyncIOMotorClient, user: CreateTelegramUserSchema):

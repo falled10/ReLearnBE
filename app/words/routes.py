@@ -3,7 +3,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi import APIRouter, Depends
 
 from app.core.db import get_database
-from app.words.crud import get_random_word, set_answer, get_translation_by_word
+from app.words.crud import get_random_word, set_answer, get_translation_by_id
 from app.words.schemas import RandomWordSchema, AnswerSchema, WordSchema
 from app.users.dependencies import get_or_create_user
 
@@ -25,7 +25,7 @@ async def add_new_answer(answer: AnswerSchema, db: AsyncIOMotorClient = Depends(
     return
 
 
-@router.get('/{word}', response_model=WordSchema)
-async def get_word_translation(word: str, db: AsyncIOMotorClient = Depends(get_database)):
-    word = await get_translation_by_word(word, db)
+@router.get('/{word_id}', response_model=WordSchema)
+async def get_word_translation(word_id: str, db: AsyncIOMotorClient = Depends(get_database)):
+    word = await get_translation_by_id(word_id, db)
     return word

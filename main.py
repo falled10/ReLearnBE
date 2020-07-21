@@ -7,7 +7,7 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 
 from app.core.db import connect_to_mongo, close_mongo_connection
-from app.config import CORS_ORIGINS
+from app.core.config import CORS_ORIGINS
 from app.users.routes import router as users_router
 from app.words.routes import router as words_router
 

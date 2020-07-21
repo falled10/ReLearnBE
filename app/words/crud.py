@@ -7,12 +7,12 @@ import random
 
 from app.words.schemas import COLLECTION_NAME as WORDS_COLLECTION
 from app.users.schemas import COLLECTION_NAME as USERS_COLLECTION
-from app.config import MONGO_INITDB_DATABASE
+from app.core.config import MONGO_INITDB_DATABASE
 
 
-async def get_translation_by_word(word: str, db: AsyncIOMotorClient) -> dict:
+async def get_translation_by_id(word_id: str, db: AsyncIOMotorClient) -> dict:
     try:
-        word = await db[MONGO_INITDB_DATABASE][WORDS_COLLECTION].find_one({'word': word})
+        word = await db[MONGO_INITDB_DATABASE][WORDS_COLLECTION].find_one({'_id': ObjectId(word_id)})
     except InvalidId:
         raise HTTPException(status_code=404, detail="Word is not found")
 

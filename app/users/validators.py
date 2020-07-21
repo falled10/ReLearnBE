@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from motor.motor_asyncio import AsyncIOMotorClient
 from starlette import status
 
-from app.config import MONGO_INITDB_DATABASE
+from app.core.config import MONGO_INITDB_DATABASE
 from app.users.schemas import COLLECTION_NAME
 
 
