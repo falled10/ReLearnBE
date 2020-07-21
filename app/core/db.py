@@ -1,6 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from app.config import MONGO_URL
+from app.core.config import MONGO_URL
 
 
 class DataBase:

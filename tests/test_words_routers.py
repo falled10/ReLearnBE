@@ -69,7 +69,7 @@ def test_get_words_if_user_have_all_answered(client, random_word, user):
 
 
 @pytest.mark.asyncio
-def test_get_word_by_its_id(client, random_word):
+def test_get_word_by_word(client, random_word):
     words = random_word.inserted_ids
     resp = client.get(f'/api/words/{str(words[0])}')
     assert resp.status_code == 200

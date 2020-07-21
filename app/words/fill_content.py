@@ -8,7 +8,7 @@ import asyncio
 
 from app.core.db import get_database, connect_to_mongo, close_mongo_connection
 from app.words.schemas import COLLECTION_NAME
-from app.config import MONGO_INITDB_DATABASE
+from app.core.config import MONGO_INITDB_DATABASE
 
 
 async def fill_content(path: str):

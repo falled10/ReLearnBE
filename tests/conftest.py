@@ -2,7 +2,7 @@ import pytest
 
 from fastapi.testclient import TestClient
 
-from app.config import MONGO_INITDB_DATABASE
+from app.core.config import MONGO_INITDB_DATABASE
 from app.core.db import get_database, connect_to_mongo, close_mongo_connection
 from app.words.schemas import COLLECTION_NAME as WORDS_COLLECTION
 from app.users.schemas import CreateTelegramUserSchema, COLLECTION_NAME as USERS_COLLECTION

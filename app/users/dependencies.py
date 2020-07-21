@@ -5,7 +5,7 @@ from starlette import status
 
 from app.core.db import get_database
 from app.users.schemas import COLLECTION_NAME
-from app.config import MONGO_INITDB_DATABASE
+from app.core.config import MONGO_INITDB_DATABASE
 
 
 async def get_or_create_user(authorization=Header(None), db: AsyncIOMotorClient = Depends(get_database)) -> dict:
